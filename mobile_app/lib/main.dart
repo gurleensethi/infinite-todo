@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_todo/data/dao/task_dao.dart';
+import 'package:infinite_todo/data/notifiers/task_store.dart';
+import 'package:infinite_todo/pages/tasks_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'dart:io';
+
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(App());
@@ -65,7 +70,13 @@ class _HomeState extends State<Home> {
               RaisedButton(
                 child: Text('Update file'),
                 onPressed: _updateFile,
-              )
+              ),
+              Expanded(
+                child: ChangeNotifierProvider<TaskStore>(
+                  create: (context) => TaskStore(taskDAO: TaskDAO()),
+                  builder: (context, widget) => TasksPage(),
+                ),
+              ),
             ],
           ),
         ),

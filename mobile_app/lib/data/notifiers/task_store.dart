@@ -7,10 +7,14 @@ class TaskStore extends ChangeNotifier {
   final int parentId;
   final List<Task> _tasks = [];
 
+  List<Task> get tasks => _tasks;
+
   TaskStore({
     @required DAO<Task> taskDAO,
     this.parentId,
-  }) : _taskDAO = taskDAO;
+  }) : _taskDAO = taskDAO {
+    _init();
+  }
 
   void _init() {
     _loadTasks();
