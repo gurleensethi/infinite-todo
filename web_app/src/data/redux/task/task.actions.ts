@@ -2,11 +2,13 @@ import {
   FetchTasksFinishAction,
   FETCH_TASK_FINISH,
   FETCH_TASK_REQUEST,
+  AddTaskFinishAction,
+  ADD_TASK_FINISH,
 } from "./task.types";
-import { Task } from "data/types";
+import { Task } from "src/data/types";
 import { Dispatch } from "redux";
 
-const createFetchTaskFinished = (
+export const fetchTaskFinished = (
   parentId: number | undefined | null,
   tasks: Task[]
 ): FetchTasksFinishAction => {
@@ -17,9 +19,16 @@ const createFetchTaskFinished = (
   };
 };
 
+export const addTaskFinished = (task: Task): AddTaskFinishAction => {
+  return {
+    task,
+    type: ADD_TASK_FINISH,
+  };
+};
+
 export const fetchTasks = (parentId: number | undefined) => {
   return (dispatch: Dispatch) => {
     dispatch({ type: FETCH_TASK_REQUEST, parentId });
-    dispatch(createFetchTaskFinished(parentId, []));
+    dispatch(fetchTaskFinished(parentId, []));
   };
 };
