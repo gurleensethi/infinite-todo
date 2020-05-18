@@ -4,6 +4,8 @@ import {
   FETCH_TASK_REQUEST,
   AddTaskFinishAction,
   ADD_TASK_FINISH,
+  UpdateTaskFinishAction,
+  UPDATE_TASK_FINISH,
 } from "./task.types";
 import { Task } from "src/data/types";
 import { Dispatch } from "redux";
@@ -23,6 +25,13 @@ export const addTaskFinished = (task: Task): AddTaskFinishAction => {
   return {
     task,
     type: ADD_TASK_FINISH,
+  };
+};
+
+export const updateTaskFinished = (task: Task): UpdateTaskFinishAction => {
+  return {
+    task,
+    type: UPDATE_TASK_FINISH,
   };
 };
 
