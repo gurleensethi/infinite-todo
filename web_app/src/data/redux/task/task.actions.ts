@@ -9,6 +9,7 @@ import {
 } from "./task.types";
 import { Task, AppThunk } from "src/data/types";
 import { Dispatch } from "redux";
+import { TaskService } from "src/data/services/task.service";
 
 export const fetchTaskFinished = (
   parentId: number | undefined | null,
@@ -35,9 +36,13 @@ export const updateTaskFinished = (task: Task): UpdateTaskFinishAction => {
   };
 };
 
-export const fetchTasks = (parentId: number | undefined): AppThunk => {
-  return (dispatch: Dispatch, getState, rootService) => {
+export const fetchTasks = (
+  parentId: number | undefined | null
+): AppThunk<Promise<void>> => {
+  return async (dispatch: Dispatch, getState, serviceLocator) => {
     dispatch({ type: FETCH_TASK_REQUEST, parentId });
-    dispatch(fetchTaskFinished(parentId, []));
+    const taskService = serviceLocator.get(TaskService);
+    const tasks = await taskService.getAll();
+    dispatch(fetchTaskFinished(parentId, tasks));
   };
 };
