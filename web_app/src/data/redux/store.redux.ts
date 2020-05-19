@@ -10,6 +10,10 @@ serviceLocator.registerLazySingleton(TaskService, () => new TaskService());
 export const createAppStore = () => {
   return createStore(
     reducer,
-    applyMiddleware(thunk.withExtraArgument(serviceLocator))
+    applyMiddleware(thunk.withExtraArgument(serviceLocator)) as ThunkMiddleware<
+      RootState,
+      Action<string>,
+      ServiceLocator
+    >
   );
 };
