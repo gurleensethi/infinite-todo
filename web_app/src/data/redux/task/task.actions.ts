@@ -7,7 +7,7 @@ import {
   UpdateTaskFinishAction,
   UPDATE_TASK_FINISH,
 } from "./task.types";
-import { Task } from "src/data/types";
+import { Task, AppThunk } from "src/data/types";
 import { Dispatch } from "redux";
 
 export const fetchTaskFinished = (
@@ -35,8 +35,8 @@ export const updateTaskFinished = (task: Task): UpdateTaskFinishAction => {
   };
 };
 
-export const fetchTasks = (parentId: number | undefined) => {
-  return (dispatch: Dispatch) => {
+export const fetchTasks = (parentId: number | undefined): AppThunk => {
+  return (dispatch: Dispatch, getState, rootService) => {
     dispatch({ type: FETCH_TASK_REQUEST, parentId });
     dispatch(fetchTaskFinished(parentId, []));
   };

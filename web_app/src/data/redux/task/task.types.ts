@@ -1,4 +1,4 @@
-import { Task, CreateTaskData } from "data/types";
+import { Task, CreateTaskData } from "src/data/types";
 
 export const FETCH_TASK_REQUEST = "FETCH_TASK_REQUEST";
 export const FETCH_TASK_FINISH = "FETCH_TASK_FINISH";
