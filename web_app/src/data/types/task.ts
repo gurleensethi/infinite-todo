@@ -3,7 +3,7 @@ export interface Task {
   content: string;
   createdAt: number;
   isComplete: boolean;
-  parentId: number | undefined;
+  parentId: number;
 }
 
 export type CreateTaskData = Omit<Task, "id" | "createdAt" | "isComplete">;

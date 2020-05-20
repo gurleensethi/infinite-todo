@@ -8,7 +8,7 @@ import {
 } from "./task.types";
 
 const initalState: TaskState = {
-  tasks: [],
+  tasks: {},
 };
 
 export const taskReducer = (
@@ -17,29 +17,51 @@ export const taskReducer = (
 ): TaskState => {
   switch (action.type) {
     case FETCH_TASK_FINISH: {
-      return { ...state, tasks: action.tasks };
+      return {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          [action.parentId]: action.tasks,
+        },
+      };
     }
     case ADD_TASK_FINISH: {
       return {
         ...state,
-        tasks: [...state.tasks, action.task],
+        tasks: {
+          ...state.tasks,
+          [action.task.parentId]: [
+            ...state.tasks[action.task.parentId],
+            action.task,
+          ],
+        },
       };
     }
     case UPDATE_TASK_FINISH: {
       return {
         ...state,
-        tasks: state.tasks.map((task) => {
-          if (task.id === action.task.id) {
-            return action.task;
-          }
-          return task;
-        }),
+        tasks: {
+          ...state.tasks,
+          [action.task.parentId]: state.tasks[action.task.parentId].map(
+            (task) => {
+              if (task.id === action.task.id) {
+                return action.task;
+              }
+              return task;
+            }
+          ),
+        },
       };
     }
     case DELETE_TASK_FINISH: {
       return {
         ...state,
-        tasks: state.tasks.filter((task) => task.id !== action.id),
+        tasks: {
+          ...state.tasks,
+          [action.task.parentId]: state.tasks[action.task.parentId].filter(
+            (t) => t.id !== action.task.id
+          ),
+        },
       };
     }
     default:

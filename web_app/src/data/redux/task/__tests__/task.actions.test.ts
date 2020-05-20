@@ -27,6 +27,7 @@ import { Action } from "redux";
 
 describe("Task actions creators", () => {
   const task: Task = {
+    parentId: -1,
     id: 1,
     content: "testing",
     createdAt: 123,
@@ -72,13 +73,13 @@ describe("Task actions creators", () => {
     const store = mockStore({ tasks: { tasks: [] } });
 
     const expectedActions: TaskAction[] = [
-      { type: FETCH_TASK_REQUEST, parentId: null },
-      { type: FETCH_TASK_FINISH, parentId: null, tasks: [task] },
+      { type: FETCH_TASK_REQUEST, parentId: -1 },
+      { type: FETCH_TASK_FINISH, parentId: -1, tasks: [task] },
     ];
 
     taskService.getAll.mockResolvedValue([task]);
 
-    await store.dispatch(fetchTasks(null));
+    await store.dispatch(fetchTasks(-1));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

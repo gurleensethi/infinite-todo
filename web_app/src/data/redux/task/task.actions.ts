@@ -14,7 +14,7 @@ import { Dispatch } from "redux";
 import { TaskService } from "src/data/services/task.service";
 
 export const fetchTaskFinished = (
-  parentId: number | undefined | null,
+  parentId: number,
   tasks: Task[]
 ): FetchTasksFinishAction => {
   return {
@@ -45,9 +45,7 @@ export const deleteTaskFinished = (task: Task): DeleteTaskFinishAction => {
   };
 };
 
-export const fetchTasks = (
-  parentId: number | undefined | null
-): AppThunk<Promise<void>> => {
+export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
   return async (dispatch: Dispatch, getState, serviceLocator) => {
     dispatch({ type: FETCH_TASK_REQUEST, parentId });
     const taskService = serviceLocator.get(TaskService);
