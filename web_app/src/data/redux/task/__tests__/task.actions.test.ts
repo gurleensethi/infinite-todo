@@ -4,6 +4,8 @@ import {
   updateTaskFinished,
   fetchTasks,
   deleteTaskFinished,
+  addTaskRequest,
+  createTask,
 } from "../task.actions";
 import {
   FetchTasksFinishAction,
@@ -16,8 +18,15 @@ import {
   FETCH_TASK_REQUEST,
   DeleteTaskFinishAction,
   DELETE_TASK_FINISH,
+  AddTaskRequestAction,
+  ADD_TASK_REQUEST,
 } from "../task.types";
-import { Task, AppThunkMiddleware, RootState } from "src/data/types";
+import {
+  Task,
+  AppThunkMiddleware,
+  RootState,
+  CreateTaskData,
+} from "src/data/types";
 import configureMockStore from "redux-mock-store";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import { TaskService } from "src/data/services/task.service";
@@ -29,9 +38,14 @@ describe("Task actions creators", () => {
   const task: Task = {
     parentId: -1,
     id: 1,
-    content: "testing",
+    content: "This is a test",
     createdAt: 123,
     isComplete: false,
+  };
+
+  const createTaskData: CreateTaskData = {
+    content: "This is a test",
+    parentId: -1,
   };
 
   const taskService: jest.Mocked<TaskService> = createMockInstance(TaskService);
@@ -41,6 +55,10 @@ describe("Task actions creators", () => {
     ThunkDispatch<RootState, ServiceLocator, Action<string>>
   >([thunk.withExtraArgument(serviceLocator) as AppThunkMiddleware]);
   serviceLocator.registerSingleton(TaskService, taskService);
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("should create an action to fetch all tasks", () => {
     const expectedAction: FetchTasksFinishAction = {
@@ -69,6 +87,21 @@ describe("Task actions creators", () => {
     expect(updateTaskFinished(task)).toEqual(expectedAction);
   });
 
+  it("should create action to create a task", async () => {
+    const store = mockStore({ tasks: { tasks: {} } });
+
+    const expectedActions: TaskAction[] = [
+      { type: ADD_TASK_REQUEST, data: createTaskData },
+      { type: ADD_TASK_FINISH, task },
+    ];
+
+    taskService.createTask.mockResolvedValue(task);
+
+    await store.dispatch(createTask(createTaskData));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
   it("should create an action that fetches the tasks", async () => {
     const store = mockStore({ tasks: { tasks: [] } });
 
@@ -90,5 +123,13 @@ describe("Task actions creators", () => {
       type: DELETE_TASK_FINISH,
     };
     expect(deleteTaskFinished(task)).toEqual(expectedAction);
+  });
+
+  it("should create an action to request add task", () => {
+    const expectedAction: AddTaskRequestAction = {
+      type: ADD_TASK_REQUEST,
+      data: createTaskData,
+    };
+    expect(addTaskRequest(createTaskData)).toEqual(expectedAction);
   });
 });

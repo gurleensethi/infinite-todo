@@ -8,10 +8,19 @@ import {
   UPDATE_TASK_FINISH,
   DeleteTaskFinishAction,
   DELETE_TASK_FINISH,
+  ADD_TASK_REQUEST,
+  AddTaskRequestAction,
+  FetchTasksRequestAction,
 } from "./task.types";
-import { Task, AppThunk } from "src/data/types";
-import { Dispatch } from "redux";
+import { Task, AppThunk, CreateTaskData } from "src/data/types";
 import { TaskService } from "src/data/services/task.service";
+
+export const fetchTaskRequest = (parentId: number): FetchTasksRequestAction => {
+  return {
+    parentId,
+    type: FETCH_TASK_REQUEST,
+  };
+};
 
 export const fetchTaskFinished = (
   parentId: number,
@@ -21,6 +30,13 @@ export const fetchTaskFinished = (
     type: FETCH_TASK_FINISH,
     parentId,
     tasks,
+  };
+};
+
+export const addTaskRequest = (data: CreateTaskData): AddTaskRequestAction => {
+  return {
+    data,
+    type: ADD_TASK_REQUEST,
   };
 };
 
@@ -46,10 +62,19 @@ export const deleteTaskFinished = (task: Task): DeleteTaskFinishAction => {
 };
 
 export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
-  return async (dispatch: Dispatch, getState, serviceLocator) => {
-    dispatch({ type: FETCH_TASK_REQUEST, parentId });
+  return async (dispatch, getState, serviceLocator) => {
+    dispatch(fetchTaskRequest(parentId));
     const taskService = serviceLocator.get(TaskService);
-    const tasks = await taskService.getAll();
+    const tasks = await taskService.getAll(parentId);
     dispatch(fetchTaskFinished(parentId, tasks));
+  };
+};
+
+export const createTask = (data: CreateTaskData): AppThunk<Promise<void>> => {
+  return async (dispatch, getState, serviceLocator) => {
+    dispatch(addTaskRequest(data));
+    const taskService = serviceLocator.get(TaskService);
+    const task = await taskService.createTask(data);
+    dispatch(addTaskFinished(task));
   };
 };
