@@ -6,6 +6,8 @@ import {
   deleteTaskFinished,
   addTaskRequest,
   createTask,
+  deleteTaskRequest,
+  deleteTask,
 } from "../task.actions";
 import {
   FetchTasksFinishAction,
@@ -20,6 +22,8 @@ import {
   DELETE_TASK_FINISH,
   AddTaskRequestAction,
   ADD_TASK_REQUEST,
+  DeleteTaskRequestAction,
+  DELETE_TASK_REQUEST,
 } from "../task.types";
 import {
   Task,
@@ -131,5 +135,26 @@ describe("Task actions creators", () => {
       data: createTaskData,
     };
     expect(addTaskRequest(createTaskData)).toEqual(expectedAction);
+  });
+
+  it("should create an action to request delete task", () => {
+    const expectedAction: DeleteTaskRequestAction = {
+      type: DELETE_TASK_REQUEST,
+      task,
+    };
+    expect(deleteTaskRequest(task)).toEqual(expectedAction);
+  });
+
+  it("should dispatch actions to delete a task", async () => {
+    const store = mockStore({ tasks: { tasks: {} } });
+
+    const expectedActions: TaskAction[] = [
+      { type: DELETE_TASK_REQUEST, task },
+      { type: DELETE_TASK_FINISH, task },
+    ];
+
+    await store.dispatch(deleteTask(task));
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });
