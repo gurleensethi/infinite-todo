@@ -42,12 +42,12 @@ export interface UpdateTaskFinishAction {
 
 export interface DeleteTaskRequestAction {
   type: typeof DELETE_TASK_REQUEST;
-  id: number;
+  task: Task;
 }
 
 export interface DeleteTaskFinishAction {
   type: typeof DELETE_TASK_FINISH;
-  id: number;
+  task: Task;
 }
 
 export interface TaskState {

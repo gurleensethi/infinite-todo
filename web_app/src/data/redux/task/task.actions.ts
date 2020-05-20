@@ -6,6 +6,8 @@ import {
   ADD_TASK_FINISH,
   UpdateTaskFinishAction,
   UPDATE_TASK_FINISH,
+  DeleteTaskFinishAction,
+  DELETE_TASK_FINISH,
 } from "./task.types";
 import { Task, AppThunk } from "src/data/types";
 import { Dispatch } from "redux";
@@ -33,6 +35,13 @@ export const updateTaskFinished = (task: Task): UpdateTaskFinishAction => {
   return {
     task,
     type: UPDATE_TASK_FINISH,
+  };
+};
+
+export const deleteTaskFinished = (task: Task): DeleteTaskFinishAction => {
+  return {
+    task,
+    type: DELETE_TASK_FINISH,
   };
 };
 

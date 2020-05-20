@@ -3,6 +3,7 @@ import {
   addTaskFinished,
   updateTaskFinished,
   fetchTasks,
+  deleteTaskFinished,
 } from "../task.actions";
 import {
   FetchTasksFinishAction,
@@ -13,6 +14,8 @@ import {
   UPDATE_TASK_FINISH,
   TaskAction,
   FETCH_TASK_REQUEST,
+  DeleteTaskFinishAction,
+  DELETE_TASK_FINISH,
 } from "../task.types";
 import { Task, AppThunkMiddleware, RootState } from "src/data/types";
 import configureMockStore from "redux-mock-store";
@@ -78,5 +81,13 @@ describe("Task actions creators", () => {
     await store.dispatch(fetchTasks(null));
 
     expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it("should create an action to finish delete task", () => {
+    const expectedAction: DeleteTaskFinishAction = {
+      task,
+      type: DELETE_TASK_FINISH,
+    };
+    expect(deleteTaskFinished(task)).toEqual(expectedAction);
   });
 });
