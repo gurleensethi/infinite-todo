@@ -1,9 +1,11 @@
 import { ThunkAction, ThunkMiddleware, ThunkDispatch } from "redux-thunk";
-import reducer from "../redux/reducer.redux";
 import { Action } from "redux";
 import ServiceLocator from "src/data/services/service-locator";
+import { TaskState } from "../redux/task/task.types";
 
-export type RootState = ReturnType<typeof reducer>;
+export type RootState = {
+  tasks: TaskState;
+};
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

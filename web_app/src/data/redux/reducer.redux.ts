@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
 import { taskReducer } from "./task/task.reducer";
 
-const reducer = combineReducers({
+export default combineReducers({
   tasks: taskReducer,
 });
-
-export default reducer;
