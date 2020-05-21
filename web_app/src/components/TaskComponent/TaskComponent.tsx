@@ -32,13 +32,24 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
     fetchTasks(parentId);
   }, [parentId, fetchTasks]);
 
-  if (!tasks || !tasks.length) {
-    return <div>No tasks found.</div>;
-  }
+  const [taskText, setTaskText] = React.useState("");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setTaskText("");
+  };
+
+  const hasTasks = tasks && tasks.length > 0;
 
   return (
     <div>
-      <TaskList tasks={tasks} />
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={(event) => setTaskText(event.target.value)}
+          value={taskText}
+        />
+      </form>
+      {hasTasks ? <TaskList tasks={tasks} /> : <div>No tasks found!</div>}
     </div>
   );
 };

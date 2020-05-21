@@ -4,11 +4,11 @@ import { RootState, Task } from "src/data/types";
 export const selectTasksByParentId = createSelector<
   RootState,
   number,
-  Record<number, Task[]>,
+  Record<number, Task[] | undefined>,
   number,
-  Task[] | undefined
+  Task[]
 >(
   (state: RootState) => state.tasks.tasks,
   (state: RootState, parentId: number) => parentId,
-  (tasks, parentId) => tasks[parentId]
+  (tasks, parentId) => tasks[parentId] || []
 );
