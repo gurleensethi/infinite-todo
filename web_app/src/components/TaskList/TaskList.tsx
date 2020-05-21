@@ -3,9 +3,10 @@ import { Task } from "src/data/types";
 
 interface Props {
   tasks: Task[];
+  onTaskClick: (task: Task) => void;
 }
 
-const TaskList: FunctionComponent<Props> = ({ tasks }) => {
+const TaskList: FunctionComponent<Props> = ({ tasks, onTaskClick }) => {
   if (!tasks || tasks.length === 0) {
     return null;
   }
@@ -13,7 +14,11 @@ const TaskList: FunctionComponent<Props> = ({ tasks }) => {
   return (
     <div>
       {tasks.map((task) => {
-        return <div>{task.content}</div>;
+        return (
+          <div key={task.id} onClick={() => onTaskClick(task)}>
+            {task.content}
+          </div>
+        );
       })}
     </div>
   );

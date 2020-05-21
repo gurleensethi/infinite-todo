@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { RootState } from "src/data/types";
+import { RootState, Task } from "src/data/types";
 import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
 import { fetchTasks, addTask } from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
@@ -7,6 +7,7 @@ import TaskList from "../TaskList/TaskList";
 
 type OwnProps = {
   parentId: number;
+  onTaskClick: (task: Task) => void;
 };
 
 const mapStateToProps = (state: RootState, props: OwnProps) => {
@@ -29,6 +30,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   fetchTasks,
   tasks,
   addTask,
+  onTaskClick,
 }) => {
   React.useEffect(() => {
     fetchTasks(parentId);
@@ -51,7 +53,11 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
           value={taskText}
         />
       </form>
-      {hasTasks ? <TaskList tasks={tasks} /> : <div>No tasks found!</div>}
+      {hasTasks ? (
+        <TaskList tasks={tasks} onTaskClick={onTaskClick} />
+      ) : (
+        <div>No tasks found!</div>
+      )}
     </div>
   );
 };
