@@ -1,4 +1,4 @@
-import { Task, CreateTaskData } from "src/data/types";
+import { Task, AddTaskData } from "src/data/types";
 
 export class TaskService {
   private tasks: Task[] = [];
@@ -13,7 +13,7 @@ export class TaskService {
     return this.tasks.find((task) => task.id === id);
   }
 
-  public async createTask(data: CreateTaskData): Promise<Task> {
+  public async createTask(data: AddTaskData): Promise<Task> {
     const task: Task = {
       ...data,
       createdAt: Date.now(),

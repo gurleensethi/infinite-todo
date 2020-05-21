@@ -1,4 +1,4 @@
-import { Task, CreateTaskData } from "src/data/types";
+import { Task, AddTaskData } from "src/data/types";
 
 export const FETCH_TASK_REQUEST = "FETCH_TASK_REQUEST";
 export const FETCH_TASK_FINISH = "FETCH_TASK_FINISH";
@@ -22,7 +22,7 @@ export interface FetchTasksFinishAction {
 
 export interface AddTaskRequestAction {
   type: typeof ADD_TASK_REQUEST;
-  data: CreateTaskData;
+  data: AddTaskData;
 }
 
 export interface AddTaskFinishAction {

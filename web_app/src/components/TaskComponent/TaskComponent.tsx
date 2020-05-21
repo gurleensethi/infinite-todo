@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { RootState } from "src/data/types";
 import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
-import { fetchTasks } from "src/data/redux/task/task.actions";
+import { fetchTasks, addTask } from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
 import TaskList from "../TaskList/TaskList";
 
@@ -17,6 +17,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
 
 const mapDispatchToProps = {
   fetchTasks,
+  addTask,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -27,6 +28,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   parentId,
   fetchTasks,
   tasks,
+  addTask,
 }) => {
   React.useEffect(() => {
     fetchTasks(parentId);
@@ -36,7 +38,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setTaskText("");
+    addTask({ content: taskText, parentId }).then(() => setTaskText(""));
   };
 
   const hasTasks = tasks && tasks.length > 0;

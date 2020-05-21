@@ -6,9 +6,10 @@ interface Props {
 }
 
 const TaskList: FunctionComponent<Props> = ({ tasks }) => {
-  if (!tasks || tasks.length) {
+  if (!tasks || tasks.length === 0) {
     return null;
   }
+
   return (
     <div>
       {tasks.map((task) => {
@@ -18,4 +19,4 @@ const TaskList: FunctionComponent<Props> = ({ tasks }) => {
   );
 };
 
-export default TaskList;
+export default React.memo(TaskList);

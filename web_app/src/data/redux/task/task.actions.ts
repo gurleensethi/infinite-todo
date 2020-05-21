@@ -14,7 +14,7 @@ import {
   DeleteTaskRequestAction,
   DELETE_TASK_REQUEST,
 } from "./task.types";
-import { Task, AppThunk, CreateTaskData } from "src/data/types";
+import { Task, AppThunk, AddTaskData } from "src/data/types";
 import { TaskService } from "src/data/services/task.service";
 
 export const fetchTaskRequest = (parentId: number): FetchTasksRequestAction => {
@@ -35,7 +35,7 @@ export const fetchTaskFinished = (
   };
 };
 
-export const addTaskRequest = (data: CreateTaskData): AddTaskRequestAction => {
+export const addTaskRequest = (data: AddTaskData): AddTaskRequestAction => {
   return {
     data,
     type: ADD_TASK_REQUEST,
@@ -79,7 +79,7 @@ export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
   };
 };
 
-export const createTask = (data: CreateTaskData): AppThunk<Promise<void>> => {
+export const addTask = (data: AddTaskData): AppThunk<Promise<void>> => {
   return async (dispatch, getState, serviceLocator) => {
     dispatch(addTaskRequest(data));
     const taskService = serviceLocator.get(TaskService);

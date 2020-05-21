@@ -5,7 +5,7 @@ import {
   fetchTasks,
   deleteTaskFinished,
   addTaskRequest,
-  createTask,
+  addTask,
   deleteTaskRequest,
   deleteTask,
 } from "../task.actions";
@@ -29,7 +29,7 @@ import {
   Task,
   AppThunkMiddleware,
   RootState,
-  CreateTaskData,
+  AddTaskData,
 } from "src/data/types";
 import configureMockStore from "redux-mock-store";
 import thunk, { ThunkDispatch } from "redux-thunk";
@@ -47,7 +47,7 @@ describe("Task actions creators", () => {
     isComplete: false,
   };
 
-  const createTaskData: CreateTaskData = {
+  const createTaskData: AddTaskData = {
     content: "This is a test",
     parentId: -1,
   };
@@ -101,7 +101,7 @@ describe("Task actions creators", () => {
 
     taskService.createTask.mockResolvedValue(task);
 
-    await store.dispatch(createTask(createTaskData));
+    await store.dispatch(addTask(createTaskData));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

@@ -6,4 +6,4 @@ export interface Task {
   parentId: number;
 }
 
-export type CreateTaskData = Omit<Task, "id" | "createdAt" | "isComplete">;
+export type AddTaskData = Omit<Task, "id" | "createdAt" | "isComplete">;
