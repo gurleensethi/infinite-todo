@@ -1,4 +1,4 @@
-import { getTaskByParentId } from "../task.selectors";
+import { selectTasksByParentId } from "../task.selectors";
 import configureStore from "redux-mock-store";
 import { RootState, Task } from "src/data/types";
 
@@ -32,7 +32,7 @@ describe("Task Selectors", () => {
 
     const expectedTasks = [task1];
 
-    const tasks = getTaskByParentId(store.getState(), -1);
+    const tasks = selectTasksByParentId(store.getState(), -1);
 
     expect(tasks).toEqual(expectedTasks);
   });
