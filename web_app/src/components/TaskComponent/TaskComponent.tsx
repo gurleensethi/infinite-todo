@@ -3,6 +3,7 @@ import { RootState } from "src/data/types";
 import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
 import { fetchTasks } from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
+import TaskList from "../TaskList/TaskList";
 
 type OwnProps = {
   parentId: number;
@@ -37,9 +38,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
 
   return (
     <div>
-      {tasks.map((task) => {
-        return <div>{task.content}</div>;
-      })}
+      <TaskList tasks={tasks} />
     </div>
   );
 };
