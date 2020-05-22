@@ -1,32 +1,18 @@
 import React, { FunctionComponent } from "react";
 import { Task } from "src/data/types";
-import styled from "styled-components";
-
-/* Styles */
-const TaskItem = styled.div<{ isSelected: boolean }>`
-  font-size: 1rem;
-  padding: 16px;
-  border-bottom: 1px solid lightgrey;
-  white-space: normal;
-  transition: 0.3s;
-  background-color: ${({ isSelected }) =>
-    isSelected ? "rgb(240, 240, 240)" : "none"};
-
-  &:hover {
-    cursor: pointer;
-    background-color: rgb(240, 240, 240);
-  }
-`;
+import TaskListItem from "./TaskListItem";
 
 interface Props {
   selectedTaskId: number | undefined;
   tasks: Task[];
   onTaskClick: (task: Task) => void;
+  onDeleteTask: (task: Task) => void;
 }
 
 const TaskList: FunctionComponent<Props> = ({
   tasks,
   onTaskClick,
+  onDeleteTask,
   selectedTaskId,
 }) => {
   if (!tasks || tasks.length === 0) {
@@ -37,13 +23,15 @@ const TaskList: FunctionComponent<Props> = ({
     <div>
       {tasks.map((task) => {
         return (
-          <TaskItem
+          <TaskListItem
             key={task.id}
-            onClick={() => onTaskClick(task)}
+            task={task}
+            onTaskClick={() => onTaskClick(task)}
+            onDeleteTask={() => onDeleteTask(task)}
             isSelected={selectedTaskId === task.id}
           >
             {task.content}
-          </TaskItem>
+          </TaskListItem>
         );
       })}
     </div>

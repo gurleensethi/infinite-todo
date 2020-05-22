@@ -1,7 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { RootState, Task } from "src/data/types";
 import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
-import { fetchTasks, addTask } from "src/data/redux/task/task.actions";
+import {
+  fetchTasks,
+  addTask,
+  deleteTask,
+} from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
 import TaskList from "../TaskList/TaskList";
 import styled from "styled-components";
@@ -39,6 +43,7 @@ type OwnProps = {
   selectedTaskId: number | undefined;
   parentId: number;
   onTaskClick: (task: Task) => void;
+  onDeleteTask: (task: Task) => void;
 };
 
 const mapStateToProps = (state: RootState, props: OwnProps) => {
@@ -50,6 +55,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
 const mapDispatchToProps = {
   fetchTasks,
   addTask,
+  deleteTask,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -60,9 +66,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   parentId,
   fetchTasks,
+  deleteTask,
   tasks,
   addTask,
   onTaskClick,
+  onDeleteTask,
   selectedTaskId,
 }) => {
   React.useEffect(() => {
@@ -91,6 +99,11 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
         <TaskList
           tasks={tasks}
           onTaskClick={onTaskClick}
+          onDeleteTask={(task) => {
+            deleteTask(task).then(() => {
+              onDeleteTask(task);
+            });
+          }}
           selectedTaskId={selectedTaskId}
         />
       ) : (

@@ -32,6 +32,13 @@ export const Home: FunctionComponent = (props) => {
     setOpenPanels([...openPanels.slice(0, index + 1), task.id]);
   };
 
+  const handleDeleteTask = (task: Task, index: number) => {
+    // Next opened panel contains sub tasks of current task.
+    if (openPanels[index + 1] === task.id) {
+      setOpenPanels(openPanels.slice(0, index + 1));
+    }
+  };
+
   return (
     <Container ref={handleRef}>
       {openPanels.map((panelId, index) => (
@@ -47,6 +54,7 @@ export const Home: FunctionComponent = (props) => {
           <TaskComponent
             parentId={panelId}
             onTaskClick={(task) => handleOnTaskClick(task, index)}
+            onDeleteTask={(task) => handleDeleteTask(task, index)}
             selectedTaskId={openPanels[index + 1]}
           />
         </div>
