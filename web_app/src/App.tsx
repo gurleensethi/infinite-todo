@@ -9,7 +9,7 @@ const store = createAppStore();
 const App: FunctionComponent = () => {
   return (
     <Provider store={store}>
-      <HashRouter>
+      <HashRouter basename={process.env.PUBLIC_URL + "/"}>
         <Route path="/" component={Home} />
       </HashRouter>
     </Provider>
