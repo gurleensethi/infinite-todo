@@ -12,6 +12,15 @@ export class TaskService {
     },
   ];
 
+  constructor() {
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    this.tasks = tasks;
+  }
+
+  private saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+
   public async getAll(
     parentId: number | undefined = undefined
   ): Promise<Task[]> {
@@ -30,6 +39,7 @@ export class TaskService {
       isComplete: false,
     };
     this.tasks.push(task);
+    this.saveTasks();
     return task;
   }
 
@@ -37,6 +47,7 @@ export class TaskService {
     const index = this.tasks.findIndex((t) => t.id === task.id);
     if (index >= 0) {
       this.tasks.splice(index, 1);
+      this.saveTasks();
     }
   }
 }
