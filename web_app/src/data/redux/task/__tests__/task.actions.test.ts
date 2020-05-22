@@ -114,7 +114,7 @@ describe("Task actions creators", () => {
       { type: FETCH_TASK_FINISH, parentId: -1, tasks: [task] },
     ];
 
-    taskService.getAll.mockResolvedValue([task]);
+    taskService.getTasksByParentId.mockResolvedValue([task]);
 
     await store.dispatch(fetchTasks(-1));
 

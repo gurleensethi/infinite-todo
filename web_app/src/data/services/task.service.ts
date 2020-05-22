@@ -21,7 +21,11 @@ export class TaskService {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
-  public async getAll(
+  public async getAll() {
+    return this.tasks;
+  }
+
+  public async getTasksByParentId(
     parentId: number | undefined = undefined
   ): Promise<Task[]> {
     return this.tasks.filter((task) => task.parentId === parentId);
@@ -46,7 +50,19 @@ export class TaskService {
   public async deleteTask(task: Task): Promise<void> {
     const index = this.tasks.findIndex((t) => t.id === task.id);
     if (index >= 0) {
-      this.tasks.splice(index, 1);
+      let task = this.tasks[index];
+      const tasksToDelete: number[] = [task.id];
+      let position = 0;
+      while (true) {
+        const tasks = await this.getTasksByParentId(tasksToDelete[position]);
+        if (tasks.length === 0) {
+          break;
+        }
+        tasksToDelete.push(...tasks.map((task) => task.id));
+        position++;
+      }
+      const taskIdsToDelete = new Set(tasksToDelete);
+      this.tasks = this.tasks.filter((task) => !taskIdsToDelete.has(task.id));
       this.saveTasks();
     }
   }

@@ -74,7 +74,7 @@ export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
   return async (dispatch, getState, serviceLocator) => {
     dispatch(fetchTaskRequest(parentId));
     const taskService = serviceLocator.get(TaskService);
-    const tasks = await taskService.getAll(parentId);
+    const tasks = await taskService.getTasksByParentId(parentId);
     dispatch(fetchTaskFinished(parentId, tasks));
   };
 };
