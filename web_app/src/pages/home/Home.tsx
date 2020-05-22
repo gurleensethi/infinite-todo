@@ -10,7 +10,7 @@ export const Home: FunctionComponent = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ height: "100%", width: "100%" }}>
       {openPanels.map((panelId, index) => (
         <TaskComponent
           parentId={panelId}

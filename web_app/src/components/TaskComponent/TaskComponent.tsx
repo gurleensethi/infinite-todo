@@ -4,7 +4,29 @@ import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
 import { fetchTasks, addTask } from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
 import TaskList from "../TaskList/TaskList";
+import styled from "styled-components";
 
+/* Styles */
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
+
+const TaskForm = styled.form`
+  width: 100%;
+`;
+
+const TaskInput = styled.input`
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid lightgrey;
+  font-size: 16px;
+  padding: 16px;
+`;
+
+/* State */
 type OwnProps = {
   parentId: number;
   onTaskClick: (task: Task) => void;
@@ -25,6 +47,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
+/* Component */
 const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   parentId,
   fetchTasks,
@@ -46,19 +69,20 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   const hasTasks = tasks && tasks.length > 0;
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Container>
+      <TaskForm onSubmit={handleSubmit}>
+        <TaskInput
           onChange={(event) => setTaskText(event.target.value)}
           value={taskText}
+          placeholder="Enter Task..."
         />
-      </form>
+      </TaskForm>
       {hasTasks ? (
         <TaskList tasks={tasks} onTaskClick={onTaskClick} />
       ) : (
         <div>No tasks found!</div>
       )}
-    </div>
+    </Container>
   );
 };
 

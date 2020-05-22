@@ -13,6 +13,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-mock-store": "^1.0.2",
+    "@types/styled-components": "^5.1.0",
     "jest-create-mock-instance": "^1.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -23,6 +24,7 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "styled-components": "^5.1.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
