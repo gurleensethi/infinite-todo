@@ -37,7 +37,12 @@ export const Home: FunctionComponent = (props) => {
     <Container ref={handleRef}>
       {openPanels.map((panelId, index) => (
         <div
-          style={{ display: "inline-block", width: "100%", height: "100%" }}
+          style={{
+            display: "inline-block",
+            width: "100%",
+            height: "100%",
+            maxWidth: "500px",
+          }}
           key={panelId}
         >
           <TaskComponent

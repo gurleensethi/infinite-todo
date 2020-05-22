@@ -8,6 +8,12 @@ const TaskItem = styled.div`
   padding: 16px;
   border-bottom: 1px solid lightgrey;
   white-space: normal;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(240, 240, 240);
+  }
 `;
 
 interface Props {
