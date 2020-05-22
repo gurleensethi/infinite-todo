@@ -20,7 +20,6 @@ export const Home: FunctionComponent = (props) => {
   React.useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      console.log(container.scrollWidth);
       container.scrollLeft = container.scrollWidth;
     }
   });
@@ -48,6 +47,7 @@ export const Home: FunctionComponent = (props) => {
           <TaskComponent
             parentId={panelId}
             onTaskClick={(task) => handleOnTaskClick(task, index)}
+            selectedTaskId={openPanels[index + 1]}
           />
         </div>
       ))}

@@ -36,6 +36,7 @@ const NoTasksFound = styled.div`
 
 /* State */
 type OwnProps = {
+  selectedTaskId: number | undefined;
   parentId: number;
   onTaskClick: (task: Task) => void;
 };
@@ -62,6 +63,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   tasks,
   addTask,
   onTaskClick,
+  selectedTaskId,
 }) => {
   React.useEffect(() => {
     fetchTasks(parentId);
@@ -86,7 +88,11 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
         />
       </TaskForm>
       {hasTasks ? (
-        <TaskList tasks={tasks} onTaskClick={onTaskClick} />
+        <TaskList
+          tasks={tasks}
+          onTaskClick={onTaskClick}
+          selectedTaskId={selectedTaskId}
+        />
       ) : (
         <NoTasksFound>No tasks found...</NoTasksFound>
       )}
