@@ -1,5 +1,14 @@
 import React, { FunctionComponent } from "react";
 import { Task } from "src/data/types";
+import styled from "styled-components";
+
+/* Styles */
+const TaskItem = styled.div`
+  font-size: 1rem;
+  padding: 16px;
+  border-bottom: 1px solid lightgrey;
+  white-space: normal;
+`;
 
 interface Props {
   tasks: Task[];
@@ -15,9 +24,9 @@ const TaskList: FunctionComponent<Props> = ({ tasks, onTaskClick }) => {
     <div>
       {tasks.map((task) => {
         return (
-          <div key={task.id} onClick={() => onTaskClick(task)}>
+          <TaskItem key={task.id} onClick={() => onTaskClick(task)}>
             {task.content}
-          </div>
+          </TaskItem>
         );
       })}
     </div>

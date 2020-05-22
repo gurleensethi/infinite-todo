@@ -12,6 +12,8 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
 `;
 
 const TaskForm = styled.form`
@@ -22,8 +24,14 @@ const TaskInput = styled.input`
   width: 100%;
   border: none;
   border-bottom: 1px solid lightgrey;
-  font-size: 16px;
+  background-color: lightgrey;
+  font-size: 1rem;
   padding: 16px;
+`;
+
+const NoTasksFound = styled.div`
+  align-self: center;
+  margin-top: 16px;
 `;
 
 /* State */
@@ -80,7 +88,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
       {hasTasks ? (
         <TaskList tasks={tasks} onTaskClick={onTaskClick} />
       ) : (
-        <div>No tasks found!</div>
+        <NoTasksFound>No tasks found...</NoTasksFound>
       )}
     </Container>
   );

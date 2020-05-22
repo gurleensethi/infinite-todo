@@ -6,7 +6,7 @@ export class TaskService {
     {
       id: 0,
       parentId: -1,
-      content: "Testing",
+      content: "Docker Stack: Docker stacks course ... .dsf.sd fsf dsf sd f",
       createdAt: Date.now(),
       isComplete: false,
     },
