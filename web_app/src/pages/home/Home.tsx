@@ -1,23 +1,51 @@
 import React, { FunctionComponent } from "react";
 import TaskComponent from "src/components/TaskComponent/TaskComponent";
 import { Task } from "src/data/types";
+import styled from "styled-components";
 
+/* Styles */
+const Container = styled.div`
+  overflow-y: auto;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+`;
+
+/* Component */
 export const Home: FunctionComponent = (props) => {
   const [openPanels, setOpenPanels] = React.useState<number[]>([-1]);
+  const containerRef = React.useRef<HTMLDivElement | null>();
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      console.log(container.scrollWidth);
+      container.scrollLeft = container.scrollWidth;
+    }
+  });
+
+  const handleRef = (ref: HTMLDivElement | null) => {
+    containerRef.current = ref;
+  };
 
   const handleOnTaskClick = (task: Task, index: number) => {
     setOpenPanels([...openPanels.slice(0, index + 1), task.id]);
   };
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <Container ref={handleRef}>
       {openPanels.map((panelId, index) => (
-        <TaskComponent
-          parentId={panelId}
+        <div
+          style={{ display: "inline-block", width: "100%", height: "100%" }}
           key={panelId}
-          onTaskClick={(task) => handleOnTaskClick(task, index)}
-        />
+        >
+          <TaskComponent
+            parentId={panelId}
+            onTaskClick={(task) => handleOnTaskClick(task, index)}
+          />
+        </div>
       ))}
-    </div>
+    </Container>
   );
 };

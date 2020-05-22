@@ -1,7 +1,16 @@
 import { Task, AddTaskData } from "src/data/types";
 
 export class TaskService {
-  private tasks: Task[] = [];
+  private tasks: Task[] = [
+    // TODO: Remove initial task
+    {
+      id: 0,
+      parentId: -1,
+      content: "Testing",
+      createdAt: Date.now(),
+      isComplete: false,
+    },
+  ];
 
   public async getAll(
     parentId: number | undefined = undefined
