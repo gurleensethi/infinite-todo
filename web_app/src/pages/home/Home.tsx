@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from "react";
 import TaskComponent from "src/components/TaskComponent/TaskComponent";
-import { Task } from "src/data/types";
+import { Task, RootState } from "src/data/types";
 import styled from "styled-components";
 import TopBar from "src/components/TopBar/TopBar";
+import { showDialog } from "src/data/redux/ui/ui.actions";
+import { connect, ConnectedProps } from "react-redux";
 
 /* Styles */
 const Container = styled.div`
@@ -20,8 +22,23 @@ const Panels = styled.div`
   scroll-behavior: smooth;
 `;
 
+/* Props and State */
+interface OwnProps {}
+
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
+  return {};
+};
+
+const mapDispatchToProps = {
+  showDialog,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
 /* Component */
-export const Home: FunctionComponent = (props) => {
+const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
   const [openPanels, setOpenPanels] = React.useState<number[]>([-1]);
   const containerRef = React.useRef<HTMLDivElement | null>();
 
@@ -51,7 +68,18 @@ export const Home: FunctionComponent = (props) => {
     <Container>
       <TopBar
         title="Infinity Todo"
-        actions={[{ iconName: "settings", onClick: () => {} }]}
+        actions={[
+          {
+            iconName: "settings",
+            onClick: () => {
+              showDialog({
+                type: "DELETE_ALL_TASKS_MODAL",
+                title: "This is a test",
+                description: "This is another test",
+              });
+            },
+          },
+        ]}
       />
       <Panels ref={handleRef}>
         {openPanels.map((panelId, index) => (
@@ -76,3 +104,5 @@ export const Home: FunctionComponent = (props) => {
     </Container>
   );
 };
+
+export default connector(Home);

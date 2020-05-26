@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "./reducer.redux";
 import thunk from "redux-thunk";
 import ServiceLocator from "src/data/services/service-locator";
@@ -8,11 +8,16 @@ import { AppThunkMiddleware } from "../types";
 const serviceLocator = new ServiceLocator();
 serviceLocator.registerLazySingleton(TaskService, () => new TaskService());
 
+const composeEnhancers =
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 export const createAppStore = () => {
   return createStore(
     reducer,
-    applyMiddleware(
-      thunk.withExtraArgument(serviceLocator) as AppThunkMiddleware
+    composeEnhancers(
+      applyMiddleware(
+        thunk.withExtraArgument(serviceLocator) as AppThunkMiddleware
+      )
     )
   );
 };
