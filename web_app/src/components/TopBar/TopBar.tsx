@@ -29,9 +29,13 @@ const SettingsButton = styled.button`
   background-color: transparent;
   font-size: 16px;
   padding: 0;
+  outline: none;
+  transition: 0.3s;
 
   &:hover {
     cursor: pointer;
+    color: grey;
+    border: none;
   }
 `;
 
