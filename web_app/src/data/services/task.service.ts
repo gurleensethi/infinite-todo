@@ -1,16 +1,7 @@
 import { Task, AddTaskData } from "src/data/types";
 
 export class TaskService {
-  private tasks: Task[] = [
-    // TODO: Remove initial task
-    {
-      id: 0,
-      parentId: -1,
-      content: "Docker Stack: Docker stacks course ... .dsf.sd fsf dsf sd f",
-      createdAt: Date.now(),
-      isComplete: false,
-    },
-  ];
+  private tasks: Task[] = [];
 
   constructor() {
     const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
@@ -39,7 +30,7 @@ export class TaskService {
     const task: Task = {
       ...data,
       createdAt: Date.now(),
-      id: this.tasks.length + 1,
+      id: Date.now(),
       isComplete: false,
     };
     this.tasks.push(task);
