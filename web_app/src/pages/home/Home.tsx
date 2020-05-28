@@ -3,7 +3,7 @@ import TaskComponent from "src/components/TaskComponent/TaskComponent";
 import { Task, RootState } from "src/data/types";
 import styled from "styled-components";
 import TopBar from "src/components/TopBar/TopBar";
-import { showDialog } from "src/data/redux/ui/ui.actions";
+import { showModal } from "src/data/redux/ui/ui.actions";
 import { connect, ConnectedProps } from "react-redux";
 
 /* Styles */
@@ -30,7 +30,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
 };
 
 const mapDispatchToProps = {
-  showDialog,
+  showDialog: showModal,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

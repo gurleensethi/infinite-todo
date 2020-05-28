@@ -10,6 +10,7 @@ export interface ShowModalAction {
 
 export interface HideModalAction {
   type: typeof HIDE_MODAL;
+  modalType: string;
 }
 
 export interface UiState {

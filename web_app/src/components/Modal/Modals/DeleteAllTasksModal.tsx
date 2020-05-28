@@ -1,10 +1,28 @@
 import React, { FunctionComponent } from "react";
 import SimpleModal from "src/components/Modal/SimpleModal";
+import { ConnectedProps, connect } from "react-redux";
+import { hideModal } from "src/data/redux/ui/ui.actions";
+import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
 
-const DeleteAllTasksModal: FunctionComponent = (props) => {
+/* State and Props */
+
+const mapDispatchToProps = {
+  hideModal,
+};
+
+const connector = connect(undefined, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
+  hideModal,
+}) => {
   return (
-    <SimpleModal title="Do you want to delete" description="all the data?" />
+    <SimpleModal onClose={() => hideModal(DELETE_ALL_TASKS_MODAL)}>
+      <div>Do you want to delete</div>
+      <div>all the data?</div>
+    </SimpleModal>
   );
 };
 
-export default DeleteAllTasksModal;
+export default connector(DeleteAllTasksModal);
