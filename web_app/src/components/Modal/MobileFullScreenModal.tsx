@@ -17,10 +17,13 @@ const ContentContainer = styled.div`
   background-color: white;
   height: 100%;
   width: 100%;
+  border-radius: 0px;
 
   @media screen and (min-width: 600px) {
     height: unset;
-    width: unset;
+    width: 50%;
+    max-width: 600px;
+    border-radius: 8px;
   }
 `;
 
