@@ -13,7 +13,7 @@ export interface HideModalAction {
 }
 
 export interface UiState {
-  dialogs: ModalOptions[];
+  modals: ModalOptions[];
 }
 
 export type UiActions = ShowModalAction | HideModalAction;

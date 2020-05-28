@@ -1,7 +1,7 @@
 import { UiState, UiActions, SHOW_MODAL } from "./ui.types";
 
 const initialState: UiState = {
-  dialogs: [],
+  modals: [],
 };
 
 const uiReducer = (state = initialState, action: UiActions): UiState => {
@@ -9,7 +9,7 @@ const uiReducer = (state = initialState, action: UiActions): UiState => {
     case SHOW_MODAL:
       return {
         ...state,
-        dialogs: [...state.dialogs, action.modalOptions],
+        modals: [...state.modals, action.modalOptions],
       };
     default:
       return state;

@@ -1,11 +1,19 @@
 import React, { FunctionComponent } from "react";
-// import DeleteAllTasksModal from "./Modals/DeleteAllTasksModal";
-// import { ModalOptions, DELETE_ALL_TASKS_MODAL } from "src/data/types";
+import DeleteAllTasksModal from "./Modals/DeleteAllTasksModal";
+import {
+  ModalOptions,
+  DELETE_ALL_TASKS_MODAL,
+  RootState,
+} from "src/data/types";
 import styled from "styled-components";
+import { connect, ConnectedProps } from "react-redux";
 
-// const modalLookupTable: Record<string, React.ComponentType> = {
-//   [DELETE_ALL_TASKS_MODAL]: DeleteAllTasksModal,
-// };
+const modalLookupTable: Record<
+  string,
+  React.ComponentType<Record<any, any>>
+> = {
+  [DELETE_ALL_TASKS_MODAL]: DeleteAllTasksModal,
+};
 
 /* Styles */
 const Container = styled.div`
@@ -13,8 +21,32 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const ModalManager: FunctionComponent = ({ children }) => {
-  return <Container>{children}</Container>;
+/* Props and State */
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    modals: state.ui.modals,
+  };
 };
 
-export default ModalManager;
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const ModalManager: FunctionComponent<PropsFromRedux> = ({
+  children,
+  modals,
+}) => {
+  return (
+    <Container>
+      {children}
+      {modals &&
+        modals.map((modal) => {
+          const Modal = modalLookupTable[modal.type];
+          return <Modal {...modal} />;
+        })}
+    </Container>
+  );
+};
+
+export default connector(ModalManager);
