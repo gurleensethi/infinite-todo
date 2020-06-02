@@ -10,7 +10,7 @@ jobs:
     name: Deploy React App
     steps:
       - uses: actions/checkout@v2
-      - uses: gurleensethi/react-github-pages-@v0.1
+      - uses: gurleensethi/react-github-pages@v0.1
         with:
           project_folder: web_app
           access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
