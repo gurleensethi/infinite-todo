@@ -10,37 +10,8 @@ jobs:
     name: Deploy React App
     steps:
       - uses: actions/checkout@v2
-      - uses: gurleensethi/react-github-pages-action@v0.26
+      - uses: gurleensethi/react-github-pages-@v0.1
         with:
           project_folder: web_app
           access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - run: echo "Deploying..."
-  # # This workflow contains a single job called "build"
-  # build:
-  #   # The type of runner that the job will run on
-  #   runs-on: ubuntu-latest
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #     - uses: actions/setup-node@v1.4.2
-  #       with:
-  #         node-version: 13.12
-  #     - uses: actions/checkout@v2
-  #     # Runs a single command using the runners shell
-  #     - name: Build
-  #       run: |
-  #         cd web_app
-  #         yarn install --forzen-lockfile
-  #         yarn build --production
-  #     # Runs a set of commands using the runners shell
-  #     - name: Push to gh-pages branch
-  #       run: |
-  #         cd web_app/build
-  #         git init
-  #         git config --global user.email sarusethi@rocketmail.com
-  #         git config --global user.name Gurleen Sethi
-  #         git remote add origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/$GITHUB_REPOSITORY.git
-  #         git checkout -b gh-pages
-  #         git add .
-  #         git commit -m "Deployment of web app."
-  #         git push origin gh-pages -f
