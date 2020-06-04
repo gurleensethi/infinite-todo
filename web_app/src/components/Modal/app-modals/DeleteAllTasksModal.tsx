@@ -2,9 +2,9 @@ import React, { FunctionComponent } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { hideModal } from "src/data/redux/ui/ui.actions";
 import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
-import MobileFullScreenModal from "../modal-types/MobileFullScreenModal";
 import styled from "styled-components";
 import SimpleButton from "src/components/Buttons/SimpleButton";
+import SimpleModal from "../modal-types/SimpleModal";
 
 /* Styles */
 
@@ -31,12 +31,12 @@ const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
   hideModal,
 }) => {
   return (
-    <MobileFullScreenModal onClose={() => hideModal(DELETE_ALL_TASKS_MODAL)}>
+    <SimpleModal onClose={() => hideModal(DELETE_ALL_TASKS_MODAL)}>
       <Container>
         <Title>Are sure you want to delete all the data?</Title>
         <SimpleButton>Delete All Data</SimpleButton>
       </Container>
-    </MobileFullScreenModal>
+    </SimpleModal>
   );
 };
 
