@@ -5,8 +5,6 @@ export interface BaseModalOptions {}
 
 export interface DeleteAllTaskModalOptions extends BaseModalOptions {
   type: typeof DELETE_ALL_TASKS_MODAL;
-  title: string;
-  description: string;
 }
 
 export interface SettingsModalOptions extends BaseModalOptions {
@@ -14,4 +12,5 @@ export interface SettingsModalOptions extends BaseModalOptions {
 }
 
 export type ModalOptions = DeleteAllTaskModalOptions | SettingsModalOptions;
+
 export type ModalType = typeof DELETE_ALL_TASKS_MODAL | typeof SETTINGS_MODAL;

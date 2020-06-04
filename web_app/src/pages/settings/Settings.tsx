@@ -60,7 +60,6 @@ const Option = styled.li`
 `;
 
 /* State and Props */
-
 interface OwnProps {
   onClose?: () => void;
 }
@@ -80,11 +79,7 @@ const Settings: FunctionComponent<OwnProps & PropsFromRedux> = ({
   showModal,
 }) => {
   const handleDeleteAllTaskClick = () => {
-    showModal({
-      type: DELETE_ALL_TASKS_MODAL,
-      title: "Are you sure you want to delete all tasks?",
-      description: "This cannot be undone.",
-    });
+    showModal({ type: DELETE_ALL_TASKS_MODAL });
   };
 
   return (
