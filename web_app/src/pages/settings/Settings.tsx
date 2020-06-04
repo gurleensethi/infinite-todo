@@ -1,5 +1,8 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
+import { showModal } from "src/data/redux/ui/ui.actions";
+import { connect, ConnectedProps } from "react-redux";
+import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
 
 /* Styles */
 const Container = styled.div`
@@ -62,7 +65,28 @@ interface OwnProps {
   onClose?: () => void;
 }
 
-const Settings: FunctionComponent<OwnProps> = ({ onClose }) => {
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+  showModal,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Settings: FunctionComponent<OwnProps & PropsFromRedux> = ({
+  onClose,
+  showModal,
+}) => {
+  const handleDeleteAllTaskClick = () => {
+    showModal({
+      type: DELETE_ALL_TASKS_MODAL,
+      title: "Are you sure you want to delete all tasks?",
+      description: "This cannot be undone.",
+    });
+  };
+
   return (
     <Container>
       <TopBar>
@@ -71,11 +95,11 @@ const Settings: FunctionComponent<OwnProps> = ({ onClose }) => {
           close
         </CloseIcon>
       </TopBar>
-      <OptionList>
+      <OptionList onClick={handleDeleteAllTaskClick}>
         <Option>Delete all tasks</Option>
       </OptionList>
     </Container>
   );
 };
 
-export default Settings;
+export default connector(Settings);
