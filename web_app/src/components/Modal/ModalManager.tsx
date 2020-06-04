@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import DeleteAllTasksModal from "./Modals/DeleteAllTasksModal";
+import DeleteAllTasksModal from "./app-modals/DeleteAllTasksModal";
 import { DELETE_ALL_TASKS_MODAL, RootState } from "src/data/types";
 import styled from "styled-components";
 import { connect, ConnectedProps } from "react-redux";

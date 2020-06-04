@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { hideModal } from "src/data/redux/ui/ui.actions";
 import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
-import MobileFullScreenModal from "../MobileFullScreenModal";
+import MobileFullScreenModal from "../modal-types/MobileFullScreenModal";
 import styled from "styled-components";
 import SimpleButton from "src/components/Buttons/SimpleButton";
 
