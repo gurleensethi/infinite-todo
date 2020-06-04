@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import TaskComponent from "src/components/TaskComponent/TaskComponent";
-import { Task, RootState } from "src/data/types";
+import { Task, RootState, SETTINGS_MODAL } from "src/data/types";
 import styled from "styled-components";
 import TopBar from "src/components/TopBar/TopBar";
 import { showModal } from "src/data/redux/ui/ui.actions";
@@ -72,11 +72,7 @@ const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
           {
             iconName: "settings",
             onClick: () => {
-              showDialog({
-                type: "DELETE_ALL_TASKS_MODAL",
-                title: "This is a test",
-                description: "This is another test",
-              });
+              showDialog({ type: SETTINGS_MODAL });
             },
           },
         ]}

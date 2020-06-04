@@ -1,4 +1,4 @@
-import { ModalOptions } from "src/data/types";
+import { ModalOptions, ModalType } from "src/data/types";
 import {
   ShowModalAction,
   SHOW_MODAL,
@@ -13,7 +13,7 @@ export const showModal = (modalOptions: ModalOptions): ShowModalAction => {
   };
 };
 
-export const hideModal = (modalType: string): HideModalAction => {
+export const hideModal = (modalType: ModalType): HideModalAction => {
   return {
     modalType,
     type: HIDE_MODAL,
