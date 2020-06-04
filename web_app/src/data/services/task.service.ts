@@ -17,12 +17,12 @@ export class TaskService {
   }
 
   public async getTasksByParentId(
-    parentId: number | undefined = undefined
+    parentId: string | undefined = undefined
   ): Promise<Task[]> {
     return this.tasks.filter((task) => task.parentId === parentId);
   }
 
-  public async getById(id: number): Promise<Task | undefined> {
+  public async getById(id: string): Promise<Task | undefined> {
     return this.tasks.find((task) => task.id === id);
   }
 
@@ -30,7 +30,7 @@ export class TaskService {
     const task: Task = {
       ...data,
       createdAt: Date.now(),
-      id: Date.now(),
+      id: `${Date.now()}-${Math.random() * Math.random() * Math.random()}`,
       isComplete: false,
     };
     this.tasks.push(task);
@@ -41,18 +41,16 @@ export class TaskService {
   public async deleteTask(task: Task): Promise<void> {
     const index = this.tasks.findIndex((t) => t.id === task.id);
     if (index >= 0) {
-      let task = this.tasks[index];
-      const tasksToDelete: number[] = [task.id];
-      let position = 0;
-      while (true) {
-        const tasks = await this.getTasksByParentId(tasksToDelete[position]);
-        if (tasks.length === 0) {
-          break;
-        }
-        tasksToDelete.push(...tasks.map((task) => task.id));
-        position++;
+      let taskToDelete = this.tasks[index];
+      const taskIdsToDelete: Set<string> = new Set();
+      taskIdsToDelete.add(taskToDelete.id);
+      const tasksqueue: Task[] = [taskToDelete];
+      while (tasksqueue.length) {
+        const task = tasksqueue.shift();
+        const tasks = await this.getTasksByParentId(task?.id);
+        tasksqueue.push(...tasks);
+        tasks.forEach((task) => taskIdsToDelete.add(task.id));
       }
-      const taskIdsToDelete = new Set(tasksToDelete);
       this.tasks = this.tasks.filter((task) => !taskIdsToDelete.has(task.id));
       this.saveTasks();
     }

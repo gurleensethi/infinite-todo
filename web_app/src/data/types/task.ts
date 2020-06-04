@@ -1,9 +1,9 @@
 export interface Task {
-  id: number;
+  id: string;
   content: string;
   createdAt: number;
   isComplete: boolean;
-  parentId: number;
+  parentId: string;
 }
 
 export type AddTaskData = Omit<Task, "id" | "createdAt" | "isComplete">;

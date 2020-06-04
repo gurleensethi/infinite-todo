@@ -40,8 +40,8 @@ const NoTasksFound = styled.div`
 
 /* State */
 type OwnProps = {
-  selectedTaskId: number | undefined;
-  parentId: number;
+  selectedTaskId: string | undefined;
+  parentId: string;
   onTaskClick: (task: Task) => void;
   onDeleteTask: (task: Task) => void;
 };

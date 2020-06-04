@@ -21,7 +21,7 @@ import {
 import { Task, AppThunk, AddTaskData } from "src/data/types";
 import { TaskService } from "src/data/services/task.service";
 
-export const fetchTaskRequest = (parentId: number): FetchTasksRequestAction => {
+export const fetchTaskRequest = (parentId: string): FetchTasksRequestAction => {
   return {
     parentId,
     type: FETCH_TASK_REQUEST,
@@ -29,7 +29,7 @@ export const fetchTaskRequest = (parentId: number): FetchTasksRequestAction => {
 };
 
 export const fetchTaskFinished = (
-  parentId: number,
+  parentId: string,
   tasks: Task[]
 ): FetchTasksFinishAction => {
   return {
@@ -86,7 +86,7 @@ export const deleteAllTasksFinished = (): DeleteAllTasksFinishAction => {
   };
 };
 
-export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
+export const fetchTasks = (parentId: string): AppThunk<Promise<void>> => {
   return async (dispatch, getState, serviceLocator) => {
     dispatch(fetchTaskRequest(parentId));
     const taskService = serviceLocator.get(TaskService);

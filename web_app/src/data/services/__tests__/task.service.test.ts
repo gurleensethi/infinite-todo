@@ -14,12 +14,12 @@ describe("TaskService", () => {
     taskService = new TaskService();
 
     taskA = await taskService.createTask({
-      content: "testing",
-      parentId: -1,
+      content: "Task A",
+      parentId: "-1",
     });
 
     taskB = await taskService.createTask({
-      content: "Task A",
+      content: "Task B",
       parentId: taskA.id,
     });
 
@@ -30,14 +30,14 @@ describe("TaskService", () => {
 
     taskD = await taskService.createTask({
       content: "Task D",
-      parentId: -1,
+      parentId: "-1",
     });
   });
 
   it("should add task", async () => {
     const taskData: AddTaskData = {
       content: "Testing",
-      parentId: -1,
+      parentId: "-1",
     };
     let tasks = await taskService.getAll();
     const initialCount = tasks.length;
@@ -50,6 +50,13 @@ describe("TaskService", () => {
   it("should delete all required tasks", async () => {
     const expectedTasks = [taskD];
     await taskService.deleteTask(taskA);
+    const tasks = await taskService.getAll();
+    expect(tasks).toEqual(expectedTasks);
+  });
+
+  it("should delete all tasks", async () => {
+    const expectedTasks: Task[] = [];
+    await taskService.deleteAllTasks();
     const tasks = await taskService.getAll();
     expect(tasks).toEqual(expectedTasks);
   });

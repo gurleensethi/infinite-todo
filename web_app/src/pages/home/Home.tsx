@@ -39,7 +39,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 /* Component */
 const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
-  const [openPanels, setOpenPanels] = React.useState<number[]>([-1]);
+  const [openPanels, setOpenPanels] = React.useState<string[]>(["-1"]);
   const containerRef = React.useRef<HTMLDivElement | null>();
 
   React.useEffect(() => {

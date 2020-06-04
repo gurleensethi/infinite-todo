@@ -13,12 +13,12 @@ export const DELETE_ALL_TASKS_FINISH = "DELETE_ALL_TASKS_FINISH";
 
 export interface FetchTasksRequestAction {
   type: typeof FETCH_TASK_REQUEST;
-  parentId: number;
+  parentId: string;
 }
 
 export interface FetchTasksFinishAction {
   type: typeof FETCH_TASK_FINISH;
-  parentId: number;
+  parentId: string;
   tasks: Task[];
 }
 
@@ -61,7 +61,7 @@ export interface DeleteAllTasksFinishAction {
 }
 
 export interface TaskState {
-  tasks: Record<number, Task[]>;
+  tasks: Record<string, Task[]>;
 }
 
 export type TaskAction =

@@ -3,7 +3,7 @@ import { Task } from "src/data/types";
 import TaskListItem from "./TaskListItem";
 
 interface Props {
-  selectedTaskId: number | undefined;
+  selectedTaskId: string | undefined;
   tasks: Task[];
   onTaskClick: (task: Task) => void;
   onDeleteTask: (task: Task) => void;
