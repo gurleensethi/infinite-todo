@@ -13,6 +13,10 @@ import {
   FetchTasksRequestAction,
   DeleteTaskRequestAction,
   DELETE_TASK_REQUEST,
+  DeleteAllTasksFinishAction,
+  DELETE_ALL_TASKS_FINISH,
+  DeleteAllTasksRequestAction,
+  DELETE_ALL_TASKS_REQUEST,
 } from "./task.types";
 import { Task, AppThunk, AddTaskData } from "src/data/types";
 import { TaskService } from "src/data/services/task.service";
@@ -70,6 +74,18 @@ export const deleteTaskFinished = (task: Task): DeleteTaskFinishAction => {
   };
 };
 
+export const deleteAllTasksRequest = (): DeleteAllTasksRequestAction => {
+  return {
+    type: DELETE_ALL_TASKS_REQUEST,
+  };
+};
+
+export const deleteAllTasksFinished = (): DeleteAllTasksFinishAction => {
+  return {
+    type: DELETE_ALL_TASKS_FINISH,
+  };
+};
+
 export const fetchTasks = (parentId: number): AppThunk<Promise<void>> => {
   return async (dispatch, getState, serviceLocator) => {
     dispatch(fetchTaskRequest(parentId));
@@ -94,5 +110,14 @@ export const deleteTask = (task: Task): AppThunk<Promise<void>> => {
     const taskService = serviceLocator.get(TaskService);
     await taskService.deleteTask(task);
     dispatch(deleteTaskFinished(task));
+  };
+};
+
+export const deleteAllTasks = (): AppThunk<Promise<void>> => {
+  return async (dispatch, getState, serviceLocator) => {
+    dispatch(deleteAllTasksRequest());
+    const taskService = await serviceLocator.get(TaskService);
+    await taskService.deleteAllTasks();
+    dispatch(deleteAllTasksFinished());
   };
 };

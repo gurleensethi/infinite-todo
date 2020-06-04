@@ -5,6 +5,7 @@ import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
 import styled from "styled-components";
 import SimpleButton from "src/components/Buttons/SimpleButton";
 import SimpleModal from "../modal-types/SimpleModal";
+import { deleteAllTasks } from "src/data/redux/task/task.actions";
 
 /* Styles */
 
@@ -21,6 +22,7 @@ const Title = styled.div`
 
 const mapDispatchToProps = {
   hideModal,
+  deleteAllTasks,
 };
 
 const connector = connect(undefined, mapDispatchToProps);
@@ -29,12 +31,24 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
   hideModal,
+  deleteAllTasks,
 }) => {
+  const handleDeleteAllTasks = async () => {
+    deleteAllTasks();
+    hideModal(DELETE_ALL_TASKS_MODAL);
+  };
+
+  const handleCloseModal = () => {
+    hideModal(DELETE_ALL_TASKS_MODAL);
+  };
+
   return (
-    <SimpleModal onClose={() => hideModal(DELETE_ALL_TASKS_MODAL)}>
+    <SimpleModal onClose={handleCloseModal}>
       <Container>
         <Title>Are sure you want to delete all the data?</Title>
-        <SimpleButton>Delete All Data</SimpleButton>
+        <SimpleButton onClick={handleDeleteAllTasks}>
+          Delete All Data
+        </SimpleButton>
       </Container>
     </SimpleModal>
   );

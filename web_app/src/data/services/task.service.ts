@@ -57,4 +57,9 @@ export class TaskService {
       this.saveTasks();
     }
   }
+
+  public deleteAllTasks = async (): Promise<void> => {
+    this.tasks = [];
+    this.saveTasks();
+  };
 }

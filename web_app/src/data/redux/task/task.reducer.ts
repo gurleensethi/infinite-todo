@@ -5,6 +5,7 @@ import {
   ADD_TASK_FINISH,
   UPDATE_TASK_FINISH,
   DELETE_TASK_FINISH,
+  DELETE_ALL_TASKS_FINISH,
 } from "./task.types";
 
 const initalState: TaskState = {
@@ -61,6 +62,14 @@ export const taskReducer = (
           [action.task.parentId]: state.tasks[action.task.parentId].filter(
             (t) => t.id !== action.task.id
           ),
+        },
+      };
+    }
+    case DELETE_ALL_TASKS_FINISH: {
+      return {
+        ...state,
+        tasks: {
+          [-1]: [],
         },
       };
     }
