@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
-import TaskComponent from "src/components/TaskComponent/TaskComponent";
+import TaskComponent from "src/components/task-component/TaskComponent";
 import { Task, RootState, SETTINGS_MODAL } from "src/data/types";
 import styled from "styled-components";
-import TopBar from "src/components/TopBar/TopBar";
+import TopBar from "src/components/top-bar/TopBar";
 import { showModal } from "src/data/redux/ui/ui.actions";
 import { connect, ConnectedProps } from "react-redux";
 

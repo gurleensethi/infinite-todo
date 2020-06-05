@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import DeleteAllTasksModal from "./app-modals/DeleteAllTasksModal";
 import {
   DELETE_ALL_TASKS_MODAL,
   RootState,
@@ -8,6 +7,7 @@ import {
 import styled from "styled-components";
 import { connect, ConnectedProps } from "react-redux";
 import ModalNotFoundError from "src/errors/modal-not-found";
+import DeleteAllTasksModal from "./app-modals/DeleteAllTasksModal";
 import SettingsModal from "./app-modals/SettingsModal";
 
 const modalLookupTable: Record<

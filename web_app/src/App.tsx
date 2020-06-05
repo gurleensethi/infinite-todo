@@ -4,7 +4,7 @@ import Home from "./pages/home/Home";
 import { Provider } from "react-redux";
 import { createAppStore } from "./data/redux/store.redux";
 import "./App.css";
-import ModalManager from "./components/Modal/ModalManager";
+import ModalManager from "./components/modal/ModalManager";
 
 const store = createAppStore();
 

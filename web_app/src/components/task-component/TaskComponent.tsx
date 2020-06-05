@@ -7,7 +7,7 @@ import {
   deleteTask,
 } from "src/data/redux/task/task.actions";
 import { connect, ConnectedProps } from "react-redux";
-import TaskList from "../TaskList/TaskList";
+import TaskList from "../task-list/TaskList";
 import styled from "styled-components";
 
 /* Styles */
