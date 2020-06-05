@@ -37,9 +37,18 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
+// Todo: Move somewhere else
+const rootTask: Task = {
+  id: "-1",
+  createdAt: Date.now(),
+  isComplete: false,
+  parentId: "-2",
+  content: "Home",
+};
+
 /* Component */
 const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
-  const [openPanels, setOpenPanels] = React.useState<string[]>(["-1"]);
+  const [openTasks, setOpenTasks] = React.useState<Task[]>([rootTask]);
   const containerRef = React.useRef<HTMLDivElement | null>();
 
   React.useEffect(() => {
@@ -54,13 +63,13 @@ const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
   };
 
   const handleOnTaskClick = (task: Task, index: number) => {
-    setOpenPanels([...openPanels.slice(0, index + 1), task.id]);
+    setOpenTasks([...openTasks.slice(0, index + 1), task]);
   };
 
   const handleDeleteTask = (task: Task, index: number) => {
     // Next opened panel contains sub tasks of current task.
-    if (openPanels[index + 1] === task.id) {
-      setOpenPanels(openPanels.slice(0, index + 1));
+    if (openTasks[index + 1]?.id === task.id) {
+      setOpenTasks(openTasks.slice(0, index + 1));
     }
   };
 
@@ -78,24 +87,26 @@ const Home: FunctionComponent<PropsFromRedux> = ({ showDialog }) => {
         ]}
       />
       <Panels ref={handleRef}>
-        {openPanels.map((panelId, index) => (
-          <div
-            style={{
-              display: "inline-block",
-              width: "100%",
-              height: "100%",
-              maxWidth: "500px",
-            }}
-            key={panelId}
-          >
-            <TaskComponent
-              parentId={panelId}
-              onTaskClick={(task) => handleOnTaskClick(task, index)}
-              onDeleteTask={(task) => handleDeleteTask(task, index)}
-              selectedTaskId={openPanels[index + 1]}
-            />
-          </div>
-        ))}
+        {openTasks.map((task, index) => {
+          return (
+            <div
+              style={{
+                display: "inline-block",
+                width: "100%",
+                height: "100%",
+                maxWidth: "500px",
+              }}
+              key={task.id}
+            >
+              <TaskComponent
+                parentTask={task}
+                onTaskClick={(task) => handleOnTaskClick(task, index)}
+                onDeleteTask={(task) => handleDeleteTask(task, index)}
+                selectedTask={openTasks[index + 1]}
+              />
+            </div>
+          );
+        })}
       </Panels>
     </Container>
   );

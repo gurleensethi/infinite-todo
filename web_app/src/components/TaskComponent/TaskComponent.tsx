@@ -40,15 +40,15 @@ const NoTasksFound = styled.div`
 
 /* State */
 type OwnProps = {
-  selectedTaskId: string | undefined;
-  parentId: string;
+  selectedTask: Task | undefined;
+  parentTask: Task;
   onTaskClick: (task: Task) => void;
   onDeleteTask: (task: Task) => void;
 };
 
-const mapStateToProps = (state: RootState, props: OwnProps) => {
+const mapStateToProps = (state: RootState, { parentTask }: OwnProps) => {
   return {
-    tasks: selectTasksByParentId(state, props.parentId),
+    tasks: selectTasksByParentId(state, parentTask.id),
   };
 };
 
@@ -64,24 +64,26 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 /* Component */
 const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
-  parentId,
+  parentTask,
   fetchTasks,
   deleteTask,
   tasks,
   addTask,
   onTaskClick,
   onDeleteTask,
-  selectedTaskId,
+  selectedTask,
 }) => {
   React.useEffect(() => {
-    fetchTasks(parentId);
-  }, [parentId, fetchTasks]);
+    fetchTasks(parentTask.id);
+  }, [parentTask, fetchTasks]);
 
   const [taskText, setTaskText] = React.useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addTask({ content: taskText, parentId }).then(() => setTaskText(""));
+    addTask({ content: taskText, parentId: parentTask.id }).then(() =>
+      setTaskText("")
+    );
   };
 
   const hasTasks = tasks && tasks.length > 0;
@@ -104,7 +106,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
               onDeleteTask(task);
             });
           }}
-          selectedTaskId={selectedTaskId}
+          selectedTaskId={selectedTask?.id}
         />
       ) : (
         <NoTasksFound>No tasks found...</NoTasksFound>
