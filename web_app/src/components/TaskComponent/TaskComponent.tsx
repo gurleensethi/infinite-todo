@@ -20,6 +20,14 @@ const Container = styled.div`
   border-right: 1px solid lightgrey;
 `;
 
+const ParentTaskName = styled.div`
+  padding: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+`;
+
 const TaskForm = styled.form`
   width: 100%;
 `;
@@ -90,6 +98,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
 
   return (
     <Container>
+      <ParentTaskName>{parentTask.content}</ParentTaskName>
       <TaskForm onSubmit={handleSubmit}>
         <TaskInput
           onChange={(event) => setTaskText(event.target.value)}
