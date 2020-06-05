@@ -3,7 +3,7 @@ import { ConnectedProps, connect } from "react-redux";
 import { hideModal } from "src/data/redux/ui/ui.actions";
 import { DELETE_ALL_TASKS_MODAL } from "src/data/types";
 import styled from "styled-components";
-import SimpleButton from "src/components/Buttons/SimpleButton";
+import SimpleButton from "src/components/buttons/SimpleButton";
 import SimpleModal from "../modal-types/SimpleModal";
 import { deleteAllTasks } from "src/data/redux/task/task.actions";
 

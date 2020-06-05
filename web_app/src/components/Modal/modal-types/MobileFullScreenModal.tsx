@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
+import fadeInDialogAnimation from "src/components/animatons/fade-in-dialog-animation";
 
 const OverlayContainer = styled.div`
   position: fixed;
@@ -18,6 +19,7 @@ const ContentContainer = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 0px;
+  animation: ${fadeInDialogAnimation} 0.3s;
 
   @media screen and (min-width: 600px) {
     height: unset;

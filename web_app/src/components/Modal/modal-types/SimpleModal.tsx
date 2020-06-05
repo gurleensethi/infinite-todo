@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
+import fadeInDialogAnimation from "src/components/animatons/fade-in-dialog-animation";
 
 /* State and Props */
 interface OwnProps {
@@ -24,6 +25,7 @@ const ContentContainer = styled.div`
   border-radius: 8px;
   max-width: 600px;
   width: 80%;
+  animation: ${fadeInDialogAnimation} 0.3s;
 `;
 
 const SimpleModal: FunctionComponent<OwnProps> = ({ onClose, children }) => {
