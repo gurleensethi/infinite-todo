@@ -63,11 +63,13 @@ const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
             onChange={handleTextChange}
             value={inputText}
             placeholder="Delete all"
+            borderColor="red"
           />
         </Spacing>
         <SimpleButton
           onClick={handleDeleteAllTasks}
           disabled={inputText !== "Delete all"}
+          color="red"
         >
           Delete all
         </SimpleButton>

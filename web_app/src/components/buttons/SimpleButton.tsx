@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
-const SimpleButton = styled.button`
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: string;
+}
+
+const SimpleButton = styled.button<Props>`
   border: 0px;
   outline: none;
-  background-color: blueviolet;
+  background-color: ${({ color }) => color || "blueviolet"};
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 16px;
