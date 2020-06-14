@@ -18,6 +18,11 @@ const SimpleButton = styled.button`
   &:active {
     opacity: 0.5;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: unset;
+  }
 `;
 
 export default SimpleButton;

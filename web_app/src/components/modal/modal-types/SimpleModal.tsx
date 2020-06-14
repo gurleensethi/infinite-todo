@@ -31,7 +31,9 @@ const ContentContainer = styled.div`
 const SimpleModal: FunctionComponent<OwnProps> = ({ onClose, children }) => {
   return (
     <OverlayContainer onClick={onClose}>
-      <ContentContainer>{children}</ContentContainer>
+      <ContentContainer onClick={(e) => e.stopPropagation()}>
+        {children}
+      </ContentContainer>
     </OverlayContainer>
   );
 };

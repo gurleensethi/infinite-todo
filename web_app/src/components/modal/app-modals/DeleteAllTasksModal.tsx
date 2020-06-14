@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { deleteAllTasks } from "src/data/redux/task/task.actions";
 import SimpleButton from "../../buttons/SimpleButton";
 import SimpleModal from "../modal-types/SimpleModal";
+import SimpleTextInput from "src/components/input/SimpleTextInput";
+import Spacing from "src/components/spacing/Spacing";
 
 /* Styles */
 
@@ -33,6 +35,8 @@ const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
   hideModal,
   deleteAllTasks,
 }) => {
+  const [inputText, setInputText] = React.useState<string>("");
+
   const handleDeleteAllTasks = async () => {
     deleteAllTasks();
     hideModal(DELETE_ALL_TASKS_MODAL);
@@ -42,12 +46,30 @@ const DeleteAllTasksModal: FunctionComponent<PropsFromRedux> = ({
     hideModal(DELETE_ALL_TASKS_MODAL);
   };
 
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setInputText(value);
+  };
+
   return (
     <SimpleModal onClose={handleCloseModal}>
       <Container>
         <Title>Are sure you want to delete all the data?</Title>
-        <SimpleButton onClick={handleDeleteAllTasks}>
-          Delete All Data
+        <p>
+          Type <strong>Delete all</strong> below
+        </p>
+        <Spacing margin={{ top: 16, bottom: 16 }}>
+          <SimpleTextInput
+            onChange={handleTextChange}
+            value={inputText}
+            placeholder="Delete all"
+          />
+        </Spacing>
+        <SimpleButton
+          onClick={handleDeleteAllTasks}
+          disabled={inputText !== "Delete all"}
+        >
+          Delete all
         </SimpleButton>
       </Container>
     </SimpleModal>
