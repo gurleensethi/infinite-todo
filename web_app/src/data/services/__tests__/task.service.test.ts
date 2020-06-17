@@ -60,4 +60,17 @@ describe("TaskService", () => {
     const tasks = await taskService.getAll();
     expect(tasks).toEqual(expectedTasks);
   });
+
+  it("should update task with provided data", async () => {
+    const task = await taskService.updateTaskById(taskA.id, {
+      isComplete: true,
+      content: "New Content",
+    });
+
+    expect(task).toEqual({
+      ...taskA,
+      isComplete: true,
+      content: "New Content",
+    });
+  });
 });
