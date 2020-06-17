@@ -28,7 +28,7 @@ export class TaskService {
 
   public async updateTaskById(
     id: string,
-    updateData: Partial<UpdateTaskData>
+    updateData: UpdateTaskData
   ): Promise<Task> {
     const index = this.tasks.findIndex((t) => t.id === id);
 

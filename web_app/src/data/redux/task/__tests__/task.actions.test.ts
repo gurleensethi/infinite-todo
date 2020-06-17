@@ -8,6 +8,7 @@ import {
   addTask,
   deleteTaskRequest,
   deleteTask,
+  updateTask,
 } from "../task.actions";
 import {
   FetchTasksFinishAction,
@@ -24,6 +25,7 @@ import {
   ADD_TASK_REQUEST,
   DeleteTaskRequestAction,
   DELETE_TASK_REQUEST,
+  UPDATE_TASK_REQUEST,
 } from "../task.types";
 import {
   Task,
@@ -74,7 +76,7 @@ describe("Task actions creators", () => {
       type: FETCH_TASK_FINISH,
     };
 
-    expect(fetchTaskFinished(1, [task])).toEqual(expectedAction);
+    expect(fetchTaskFinished("1", [task])).toEqual(expectedAction);
   });
 
   it("should create an action to finish add task", () => {
@@ -157,6 +159,19 @@ describe("Task actions creators", () => {
     ];
 
     await store.dispatch(deleteTask(task));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it("should dispatch actions to update a task", async () => {
+    const store = mockStore(initalStoreState);
+    const expectedActions: TaskAction[] = [
+      { type: UPDATE_TASK_REQUEST, id: task.id, data: { isComplete: true } },
+      { type: UPDATE_TASK_FINISH, task },
+    ];
+    taskService.updateTaskById.mockResolvedValue(task);
+
+    await store.dispatch(updateTask(task.id, { isComplete: true }));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

@@ -12,4 +12,4 @@ export type AddTaskData = Omit<
   "id" | "createdAt" | "isComplete" | "hasSubtasks"
 >;
 
-export type UpdateTaskData = Omit<Task, "id">;
+export type UpdateTaskData = Partial<Omit<Task, "id">>;
