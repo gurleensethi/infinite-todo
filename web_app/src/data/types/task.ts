@@ -4,6 +4,12 @@ export interface Task {
   createdAt: number;
   isComplete: boolean;
   parentId: string;
+  hasSubtasks: boolean;
 }
 
-export type AddTaskData = Omit<Task, "id" | "createdAt" | "isComplete">;
+export type AddTaskData = Omit<
+  Task,
+  "id" | "createdAt" | "isComplete" | "hasSubtasks"
+>;
+
+export type UpdateTaskData = Omit<Task, "id">;

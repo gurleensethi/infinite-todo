@@ -44,6 +44,7 @@ const rootTask: Task = {
   isComplete: false,
   parentId: "-2",
   content: "Home",
+  hasSubtasks: false,
 };
 
 /* Component */

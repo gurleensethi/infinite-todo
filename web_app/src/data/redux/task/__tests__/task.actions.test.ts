@@ -40,16 +40,19 @@ import { Action } from "redux";
 
 describe("Task actions creators", () => {
   const task: Task = {
-    parentId: -1,
-    id: 1,
+    parentId: "-1",
+    id: "1",
     content: "This is a test",
     createdAt: 123,
     isComplete: false,
+    hasSubtasks: false,
   };
+
+  const initalStoreState = { tasks: { tasks: {} }, ui: { modals: [] } };
 
   const createTaskData: AddTaskData = {
     content: "This is a test",
-    parentId: -1,
+    parentId: "-1",
   };
 
   const taskService: jest.Mocked<TaskService> = createMockInstance(TaskService);
@@ -66,7 +69,7 @@ describe("Task actions creators", () => {
 
   it("should create an action to fetch all tasks", () => {
     const expectedAction: FetchTasksFinishAction = {
-      parentId: 1,
+      parentId: "1",
       tasks: [task],
       type: FETCH_TASK_FINISH,
     };
@@ -92,7 +95,7 @@ describe("Task actions creators", () => {
   });
 
   it("should create action to create a task", async () => {
-    const store = mockStore({ tasks: { tasks: {} } });
+    const store = mockStore(initalStoreState);
 
     const expectedActions: TaskAction[] = [
       { type: ADD_TASK_REQUEST, data: createTaskData },
@@ -107,16 +110,16 @@ describe("Task actions creators", () => {
   });
 
   it("should create an action that fetches the tasks", async () => {
-    const store = mockStore({ tasks: { tasks: [] } });
+    const store = mockStore(initalStoreState);
 
     const expectedActions: TaskAction[] = [
-      { type: FETCH_TASK_REQUEST, parentId: -1 },
-      { type: FETCH_TASK_FINISH, parentId: -1, tasks: [task] },
+      { type: FETCH_TASK_REQUEST, parentId: "-1" },
+      { type: FETCH_TASK_FINISH, parentId: "-1", tasks: [task] },
     ];
 
     taskService.getTasksByParentId.mockResolvedValue([task]);
 
-    await store.dispatch(fetchTasks(-1));
+    await store.dispatch(fetchTasks("-1"));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -146,7 +149,7 @@ describe("Task actions creators", () => {
   });
 
   it("should dispatch actions to delete a task", async () => {
-    const store = mockStore({ tasks: { tasks: {} } });
+    const store = mockStore(initalStoreState);
 
     const expectedActions: TaskAction[] = [
       { type: DELETE_TASK_REQUEST, task },

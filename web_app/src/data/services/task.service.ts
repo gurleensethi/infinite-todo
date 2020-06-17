@@ -1,4 +1,4 @@
-import { Task, AddTaskData } from "src/data/types";
+import { Task, AddTaskData, UpdateTaskData } from "src/data/types";
 
 export class TaskService {
   private tasks: Task[] = [];
@@ -26,12 +26,28 @@ export class TaskService {
     return this.tasks.find((task) => task.id === id);
   }
 
+  public async updateTaskById(
+    id: string,
+    updateData: Partial<UpdateTaskData>
+  ): Promise<Task> {
+    const index = this.tasks.findIndex((t) => t.id === id);
+
+    if (index === -1) {
+      throw new Error(`Task with id ${id} not found!`);
+    }
+
+    this.tasks[index] = { ...this.tasks[index], ...updateData };
+
+    return this.tasks[index];
+  }
+
   public async createTask(data: AddTaskData): Promise<Task> {
     const task: Task = {
       ...data,
       createdAt: Date.now(),
       id: `${Date.now()}-${Math.random() * Math.random() * Math.random()}`,
       isComplete: false,
+      hasSubtasks: false,
     };
     this.tasks.push(task);
     this.saveTasks();
