@@ -40,10 +40,10 @@ const TaskTextContent = styled.div`
 
 const EditIcon = styled.i`
   font-size: 1.2rem;
-  color: grey;
+  color: lightgrey;
 
   &:hover {
-    color: darkgrey;
+    color: grey;
   }
 `;
 
