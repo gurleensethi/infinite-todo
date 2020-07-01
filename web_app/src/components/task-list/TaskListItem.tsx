@@ -7,6 +7,7 @@ interface Props {
   task: Task;
   onTaskClick: () => void;
   onDeleteTask: () => void;
+  onEditTask: () => void;
 }
 
 /* Styles */
@@ -61,11 +62,16 @@ const TaskListItem: FunctionComponent<Props> = ({
   task,
   onTaskClick,
   onDeleteTask,
+  onEditTask,
   isSelected,
 }) => {
-  const handleEditClick = React.useCallback((event: React.MouseEvent) => {
-    event.preventDefault();
-  }, []);
+  const handleEditClick = React.useCallback(
+    (event: React.MouseEvent) => {
+      event.stopPropagation();
+      onEditTask();
+    },
+    [onEditTask]
+  );
 
   const handleDeleteClick = React.useCallback(
     (event: React.MouseEvent) => {

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { RootState, Task } from "src/data/types";
+import { RootState, Task, EDIT_TASK_MODAL } from "src/data/types";
 import { selectTasksByParentId } from "src/data/redux/task/task.selectors";
 import {
   fetchTasks,
@@ -9,6 +9,7 @@ import {
 import { connect, ConnectedProps } from "react-redux";
 import TaskList from "../task-list/TaskList";
 import styled from "styled-components";
+import { showModal } from "src/data/redux/ui/ui.actions";
 
 /* Styles */
 const Container = styled.div`
@@ -64,6 +65,7 @@ const mapDispatchToProps = {
   fetchTasks,
   addTask,
   deleteTask,
+  showModal,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -79,6 +81,7 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
   addTask,
   onTaskClick,
   onDeleteTask,
+  showModal,
   selectedTask,
 }) => {
   React.useEffect(() => {
@@ -93,6 +96,22 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
       setTaskText("")
     );
   };
+
+  const handleDeleteTask = React.useCallback(
+    (task: Task) => {
+      deleteTask(task).then(() => {
+        onDeleteTask(task);
+      });
+    },
+    [deleteTask, onDeleteTask]
+  );
+
+  const handleEditTask = React.useCallback(
+    (task: Task) => {
+      showModal({ type: EDIT_TASK_MODAL, task });
+    },
+    [showModal]
+  );
 
   const hasTasks = tasks && tasks.length > 0;
 
@@ -110,11 +129,8 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
         <TaskList
           tasks={tasks}
           onTaskClick={onTaskClick}
-          onDeleteTask={(task) => {
-            deleteTask(task).then(() => {
-              onDeleteTask(task);
-            });
-          }}
+          onDeleteTask={handleDeleteTask}
+          onEditTask={handleEditTask}
           selectedTaskId={selectedTask?.id}
         />
       ) : (

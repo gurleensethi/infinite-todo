@@ -3,12 +3,14 @@ import {
   DELETE_ALL_TASKS_MODAL,
   RootState,
   SETTINGS_MODAL,
+  EDIT_TASK_MODAL,
 } from "src/data/types";
 import styled from "styled-components";
 import { connect, ConnectedProps } from "react-redux";
 import ModalNotFoundError from "src/errors/modal-not-found";
 import DeleteAllTasksModal from "./app-modals/DeleteAllTasksModal";
 import SettingsModal from "./app-modals/SettingsModal";
+import EditTaskModal from "./app-modals/EditTaskModal";
 
 const modalLookupTable: Record<
   string,
@@ -16,6 +18,7 @@ const modalLookupTable: Record<
 > = {
   [DELETE_ALL_TASKS_MODAL]: DeleteAllTasksModal,
   [SETTINGS_MODAL]: SettingsModal,
+  [EDIT_TASK_MODAL]: EditTaskModal,
 };
 
 /* Styles */

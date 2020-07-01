@@ -7,12 +7,14 @@ interface Props {
   tasks: Task[];
   onTaskClick: (task: Task) => void;
   onDeleteTask: (task: Task) => void;
+  onEditTask: (task: Task) => void;
 }
 
 const TaskList: FunctionComponent<Props> = ({
   tasks,
   onTaskClick,
   onDeleteTask,
+  onEditTask,
   selectedTaskId,
 }) => {
   if (!tasks || tasks.length === 0) {
@@ -28,6 +30,7 @@ const TaskList: FunctionComponent<Props> = ({
             task={task}
             onTaskClick={() => onTaskClick(task)}
             onDeleteTask={() => onDeleteTask(task)}
+            onEditTask={() => onEditTask(task)}
             isSelected={selectedTaskId === task.id}
           >
             {task.content}
