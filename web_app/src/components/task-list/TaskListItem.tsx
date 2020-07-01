@@ -33,10 +33,24 @@ const TaskItem = styled.div<{ isSelected: boolean }>`
   }
 `;
 
+const TaskTextContent = styled.div`
+  flex: 1;
+`;
+
+const EditIcon = styled.i`
+  font-size: 1.2rem;
+  color: grey;
+
+  &:hover {
+    color: darkgrey;
+  }
+`;
+
 const DeleteIcon = styled.i`
   visibility: hidden;
   color: darkred;
   font-size: 1.2rem;
+  margin-right: 8px;
 
   &:hover {
     color: red;
@@ -49,18 +63,27 @@ const TaskListItem: FunctionComponent<Props> = ({
   onDeleteTask,
   isSelected,
 }) => {
+  const handleEditClick = React.useCallback((event: React.MouseEvent) => {
+    event.preventDefault();
+  }, []);
+
+  const handleDeleteClick = React.useCallback(
+    (event: React.MouseEvent) => {
+      event.stopPropagation();
+      onDeleteTask();
+    },
+    [onDeleteTask]
+  );
+
   return (
     <TaskItem key={task.id} onClick={onTaskClick} isSelected={isSelected}>
-      {task.content}
-      <DeleteIcon
-        className="material-icons"
-        onClick={(event) => {
-          event.stopPropagation();
-          onDeleteTask();
-        }}
-      >
+      <TaskTextContent>{task.content}</TaskTextContent>
+      <DeleteIcon className="material-icons" onClick={handleDeleteClick}>
         delete
       </DeleteIcon>
+      <EditIcon className="material-icons" onClick={handleEditClick}>
+        edit
+      </EditIcon>
     </TaskItem>
   );
 };
