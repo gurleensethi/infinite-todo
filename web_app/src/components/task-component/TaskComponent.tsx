@@ -15,8 +15,8 @@ import { showModal } from "src/data/redux/ui/ui.actions";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100%;
+  width: 100%;
   border-left: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
 `;
@@ -43,8 +43,14 @@ const TaskInput = styled.input`
 `;
 
 const NoTasksFound = styled.div`
+  height: 100%;
   align-self: center;
   margin-top: 16px;
+`;
+
+const TaskListContainer = styled.div`
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 /* State */
@@ -126,13 +132,15 @@ const TaskComponent: FunctionComponent<OwnProps & PropsFromRedux> = ({
         />
       </TaskForm>
       {hasTasks ? (
-        <TaskList
-          tasks={tasks}
-          onTaskClick={onTaskClick}
-          onDeleteTask={handleDeleteTask}
-          onEditTask={handleEditTask}
-          selectedTaskId={selectedTask?.id}
-        />
+        <TaskListContainer>
+          <TaskList
+            tasks={tasks}
+            onTaskClick={onTaskClick}
+            onDeleteTask={handleDeleteTask}
+            onEditTask={handleEditTask}
+            selectedTaskId={selectedTask?.id}
+          />
+        </TaskListContainer>
       ) : (
         <NoTasksFound>No tasks found...</NoTasksFound>
       )}
