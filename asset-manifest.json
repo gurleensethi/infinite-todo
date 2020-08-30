@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/infinite-todo/static/css/main.d36f532e.chunk.css",
+    "main.js": "/infinite-todo/static/js/main.cf3f69df.chunk.js",
+    "main.js.map": "/infinite-todo/static/js/main.cf3f69df.chunk.js.map",
+    "runtime-main.js": "/infinite-todo/static/js/runtime-main.bd34ea4e.js",
+    "runtime-main.js.map": "/infinite-todo/static/js/runtime-main.bd34ea4e.js.map",
+    "static/js/2.1effb41c.chunk.js": "/infinite-todo/static/js/2.1effb41c.chunk.js",
+    "static/js/2.1effb41c.chunk.js.map": "/infinite-todo/static/js/2.1effb41c.chunk.js.map",
+    "index.html": "/infinite-todo/index.html",
+    "precache-manifest.f7b9c69000a45f12c23d0ba9e1110419.js": "/infinite-todo/precache-manifest.f7b9c69000a45f12c23d0ba9e1110419.js",
+    "service-worker.js": "/infinite-todo/service-worker.js",
+    "static/css/main.d36f532e.chunk.css.map": "/infinite-todo/static/css/main.d36f532e.chunk.css.map",
+    "static/js/2.1effb41c.chunk.js.LICENSE.txt": "/infinite-todo/static/js/2.1effb41c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bd34ea4e.js",
+    "static/js/2.1effb41c.chunk.js",
+    "static/css/main.d36f532e.chunk.css",
+    "static/js/main.cf3f69df.chunk.js"
+  ]
+}
