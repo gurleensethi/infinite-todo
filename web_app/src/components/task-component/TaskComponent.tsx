@@ -50,7 +50,7 @@ const NoTasksFound = styled.div`
 
 const TaskListContainer = styled.div`
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 /* State */
